@@ -3,12 +3,10 @@ package com.example.backend.course.controller;
 import com.example.backend.course.model.Course;
 import com.example.backend.course.service.CourseService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -26,6 +24,20 @@ public class CourseController
     public List<Course> findAll()
     {
         return courseService.getAll();
-        //return ResponseEntity.ok().body(courseService.getAll());
     }
+
+    @GetMapping("/{id}")
+    public Course find(@PathVariable("id") Long id)
+    {
+        Optional<Course> course = courseService.get(id);
+
+        return course.get();
+    }
+
+    @PostMapping
+    public Course createCourse(@RequestBody Course course)
+    {
+        return courseService.create(course);
+    }
+
 }

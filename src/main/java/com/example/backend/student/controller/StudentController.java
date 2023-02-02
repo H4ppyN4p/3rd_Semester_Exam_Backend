@@ -1,13 +1,12 @@
 package com.example.backend.student.controller;
 
+import com.example.backend.course.model.Course;
 import com.example.backend.student.model.Student;
 import com.example.backend.student.service.StudentService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -25,5 +24,19 @@ public class StudentController
     public List<Student> findAll()
     {
         return studentService.GetAll();
+    }
+
+    @GetMapping("/{id}")
+    public Student find(@PathVariable("id") Long id)
+    {
+        Optional<Student> student = studentService.get(id);
+
+        return student.get();
+    }
+
+    @PostMapping
+    public Student createStudent(@RequestBody Student student)
+    {
+        return studentService.create(student);
     }
 }
