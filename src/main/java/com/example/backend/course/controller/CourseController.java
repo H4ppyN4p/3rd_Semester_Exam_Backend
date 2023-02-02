@@ -5,6 +5,8 @@ import com.example.backend.course.repository.CourseRepository;
 import com.example.backend.course.service.CourseService;
 import com.example.backend.student.model.Student;
 import com.example.backend.student.service.StudentService;
+import com.example.backend.teacher.model.Teacher;
+import com.example.backend.teacher.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +22,15 @@ public class CourseController
 {
     private final CourseService courseService;
     private final StudentService studentService;
+    private final TeacherService teacherService;
 
 
 
-    public CourseController(CourseService courseService, StudentService studentService)
+    public CourseController(CourseService courseService, StudentService studentService, TeacherService teacherService)
     {
         this.courseService = courseService;
         this.studentService = studentService;
+        this.teacherService = teacherService;
     }
 
     @GetMapping
@@ -51,13 +55,25 @@ public class CourseController
 
     //handles the relationship between courses and students
 
+
+    //method referenced from: https://www.youtube.com/watch?v=f5bdUjEIbrg
     @PutMapping("/{courseId}/students/{studentId}")
     Course assignStudentToSubject(@PathVariable Long courseId, @PathVariable Long studentId)
     {
         Course course = courseService.get(courseId).get();
         Student student = studentService.get(studentId).get();
         course.assignStudent(student);
-        return courseService.saveCourseWithStudent(course);
+        return courseService.saveCourse(course);
+    }
+
+    //method referenced from: https://www.youtube.com/watch?v=f5bdUjEIbrg
+    @PutMapping("/{courseId}/teacher/{teacherId}")
+    Course assignTeacherToSubject(@PathVariable Long courseId, @PathVariable Long teacherId)
+    {
+        Course course = courseService.get(courseId).get();
+        Teacher teacher = teacherService.get(teacherId).get();
+        course.assignTeacher(teacher);
+        return courseService.saveCourse(course);
     }
 
 

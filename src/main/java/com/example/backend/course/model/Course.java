@@ -2,6 +2,7 @@ package com.example.backend.course.model;
 
 
 import com.example.backend.student.model.Student;
+import com.example.backend.teacher.model.Teacher;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -36,6 +37,11 @@ public class Course
     )
     private List<Student> assignedStudents = new ArrayList<>();
 
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="teacher_id", referencedColumnName = "id")
+    private Teacher teacher;
+
     public String name;
     public Date startDate;
     public Date endDate;
@@ -57,5 +63,13 @@ public class Course
 
     public void assignStudent(Student student) {
         assignedStudents.add(student);
+    }
+
+    public Teacher getTeacher(){
+        return this.teacher;
+    }
+
+    public void assignTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }
