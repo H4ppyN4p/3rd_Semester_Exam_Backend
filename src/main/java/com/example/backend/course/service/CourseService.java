@@ -2,9 +2,6 @@ package com.example.backend.course.service;
 
 import com.example.backend.course.model.Course;
 import com.example.backend.course.repository.CourseRepository;
-import com.example.backend.student.model.Student;
-import com.example.backend.student.repository.StudentRepository;
-import com.example.backend.teacher.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

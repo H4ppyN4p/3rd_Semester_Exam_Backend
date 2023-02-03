@@ -1,17 +1,13 @@
 package com.example.backend.course.controller;
 
 import com.example.backend.course.model.Course;
-import com.example.backend.course.repository.CourseRepository;
 import com.example.backend.course.service.CourseService;
 import com.example.backend.student.model.Student;
 import com.example.backend.student.service.StudentService;
 import com.example.backend.teacher.model.Teacher;
 import com.example.backend.teacher.service.TeacherService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.Subject;
 import java.util.List;
 import java.util.Optional;
 
