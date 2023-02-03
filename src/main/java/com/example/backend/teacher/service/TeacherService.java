@@ -26,9 +26,39 @@ public class TeacherService
         return teacherRepository.findById(id);
     }
 
+    //find by name
+    public List<Teacher> findByName(String name) {
+        return teacherRepository.findByName(name);
+    }
+
     //create
     public Teacher create(Teacher teacher)
     {
         return teacherRepository.save(teacher);
     }
+
+    //delete
+    public boolean delete(Long id) {
+        Optional<Teacher> optionalProduct = teacherRepository.findById(id);
+        if (optionalProduct.isEmpty()) return false;
+
+        teacherRepository.delete(optionalProduct.get());
+        return true;
+    }
+
+    //update teacher
+    public Teacher updateTeacher(Teacher teacher)
+    {
+        Teacher myTeacher = teacherRepository.findById(teacher.getId()).get();
+        if (myTeacher != null)
+        {
+            myTeacher.setName(teacher.getName());
+            myTeacher.setEmail(teacher.getEmail());
+        }
+
+        return teacherRepository.save(myTeacher);
+    }
+
+
+
 }
